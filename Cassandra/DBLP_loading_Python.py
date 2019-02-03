@@ -1,6 +1,6 @@
 import json
 from cassandra.cluster import Cluster
-cluster=Cluster(['127.0.0.1'])
+cluster = Cluster(['127.0.0.1'])
 session = cluster.connect()
 session.execute("CREATE KEYSPACE IF NOT EXISTS DBLP WITH REPLICATION = {'class':'SimpleStrategy','replication_factor':3};")
 session.set_keyspace('dblp')
@@ -46,7 +46,6 @@ with open('DBLP_clean.json', 'r') as file:
         data = data.replace("''\"", "\"''")
         data = data.replace("\"'',","''\",")
         data = data.replace("u\"","\"")
-        
         
         statement = "INSERT INTO dblp JSON '"+ data + "';"
         session.execute(statement)
