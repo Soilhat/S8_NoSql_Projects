@@ -16,15 +16,15 @@ session.execute("CREATE TYPE IF NOT EXISTS journalType ( \
                );")
 session.execute("CREATE TABLE IF NOT EXISTS DBLP ( \
                 id VARCHAR, \
-                type VARCHAR,\ 
+                type VARCHAR,\
                 year INT, \
-                title VARCHAR,\ 
-                authors LIST<VARCHAR>,\ 
-                pages frozen<pagesType>,\ 
+                title VARCHAR,\
+                authors LIST<VARCHAR>,\
+                pages frozen<pagesType>,\
                 booktitle VARCHAR, \
-                journal frozen<journalType>,\ 
+                journal frozen<journalType>,\
                 url VARCHAR, \
-                cites LIST<VARCHAR>,\ 
+                cites LIST<VARCHAR>,\
                 PRIMARY KEY(id) \
                );")
 
@@ -45,6 +45,7 @@ with open('DBLP_clean.json', 'r') as file:
         data = data.replace('None', 'null')
         data = data.replace("''\"", "\"''")
         data = data.replace("\"'',","''\",")
+        data = data.replace("u\"","\"")
         
         
         statement = "INSERT INTO dblp JSON '"+ data + "';"
